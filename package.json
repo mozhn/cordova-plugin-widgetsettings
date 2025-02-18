@@ -1,0 +1,17 @@
+{
+  "name": "me.mazlum.widgetsettings",
+  "version": "1.0.0",
+  "description": "Cordova Plugin for WidgetSettings",
+  "cordova": {
+    "id": "me.mazlum.widgetsettings",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "mozhn",
+  "license": "ISC"
+}
