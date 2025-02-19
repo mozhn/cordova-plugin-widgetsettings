@@ -16,8 +16,23 @@
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.askipo.patient"];
     
     if ([type isEqualToString:@"fasting"]) {
-        NSNumber *value = [options objectForKey:@"value"];
-        [defaults setObject:value forKey:@"fastingTime"];
+        NSString *startDateString = [options objectForKey:@"fastingStartDate"];
+        NSString *endDateString = [options objectForKey:@"fastingEndDate"];
+        
+        // ISO8601 formatı: "yyyy-MM-dd'T'HH:mm:ssZ"
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
+        
+        NSDate *startDate = [formatter dateFromString:startDateString];
+        NSDate *endDate = [formatter dateFromString:endDateString];
+        
+        if (startDate && endDate) {
+            [defaults setObject:startDate forKey:@"fastingStartDate"];
+            [defaults setObject:endDate forKey:@"fastingEndDate"];
+        } else {
+            NSLog(@"[WidgetSettings] Hata: Tarih formatı hatalı veya eksik.");
+        }
     }
     else if ([type isEqualToString:@"calories"]) {
         NSNumber *remainingCalories = [options objectForKey:@"remainingCalories"];
@@ -39,7 +54,6 @@
         [defaults setObject:totalWaterGoal forKey:@"totalWaterGoal"];
         [defaults setObject:waterIncrement forKey:@"waterIncrement"];
     }
-
     
     [defaults synchronize];
     
@@ -55,7 +69,20 @@
     id value = nil;
     
     if ([type isEqualToString:@"fasting"]) {
-        value = [defaults objectForKey:@"fastingTime"];
+        NSDate *startDate = [defaults objectForKey:@"fastingStartDate"];
+        NSDate *endDate = [defaults objectForKey:@"fastingEndDate"];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
+        
+        NSString *startDateString = startDate ? [formatter stringFromDate:startDate] : @"";
+        NSString *endDateString = endDate ? [formatter stringFromDate:endDate] : @"";
+        
+        value = @{
+            @"fastingStartDate": startDateString,
+            @"fastingEndDate": endDateString
+        };
     }
     else if ([type isEqualToString:@"calories"]) {
         NSNumber *remainingCalories = [defaults objectForKey:@"remainingCalories"];
@@ -68,6 +95,17 @@
             @"calorieGoal": calorieGoal ? calorieGoal : @0,
             @"caloriesTaken": caloriesTaken ? caloriesTaken : @0,
             @"caloriesBurned": caloriesBurned ? caloriesBurned : @0
+        };
+    }
+    else if ([type isEqualToString:@"water"]) {
+        NSNumber *waterConsumed = [defaults objectForKey:@"waterConsumed"];
+        NSNumber *totalWaterGoal = [defaults objectForKey:@"totalWaterGoal"];
+        NSNumber *waterIncrement = [defaults objectForKey:@"waterIncrement"];
+        
+        value = @{
+            @"waterConsumed": waterConsumed ? waterConsumed : @0,
+            @"totalWaterGoal": totalWaterGoal ? totalWaterGoal : @0,
+            @"waterIncrement": waterIncrement ? waterIncrement : @0
         };
     }
     
