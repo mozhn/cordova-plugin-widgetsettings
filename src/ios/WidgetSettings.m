@@ -73,7 +73,15 @@
             NSLog(@"[WidgetSettings] Hata: Periyot verisi eksik veya hatalı.");
         }
     }
-    
+    else if ([type isEqualToString:@"meal"]) {
+        NSArray *meals = [options objectForKey:@"meals"];
+        if (meals) {
+            [defaults setObject:meals forKey:@"mealSchedule"];
+        } else {
+            NSLog(@"[WidgetSettings] Hata: Meal verisi eksik.");
+        }
+    }
+
     [defaults synchronize];
     
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
