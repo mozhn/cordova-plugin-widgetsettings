@@ -30,6 +30,16 @@
         [defaults setObject:caloriesTaken forKey:@"caloriesTaken"];
         [defaults setObject:caloriesBurned forKey:@"caloriesBurned"];
     }
+    else if ([type isEqualToString:@"water"]) {
+        NSNumber *waterConsumed = [options objectForKey:@"waterConsumed"];
+        NSNumber *totalWaterGoal = [options objectForKey:@"totalWaterGoal"];
+        NSNumber *waterIncrement = [options objectForKey:@"waterIncrement"];
+        
+        [defaults setObject:waterConsumed forKey:@"waterConsumed"];
+        [defaults setObject:totalWaterGoal forKey:@"totalWaterGoal"];
+        [defaults setObject:waterIncrement forKey:@"waterIncrement"];
+    }
+
     
     [defaults synchronize];
     
