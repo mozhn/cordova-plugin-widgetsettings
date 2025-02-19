@@ -1,5 +1,5 @@
 # cordova-plugin-widgetsettings
-Cordova Plugin for Agora voice call. Video call will be added soon.
+Cordova Plugin for widget settings. Video call will be added soon.
 
 ## Installation
 
