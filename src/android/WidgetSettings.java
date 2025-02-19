@@ -1,4 +1,4 @@
-package me.mazlum.agoracall;
+package me.mazlum.widgetsettings;
 
 import android.util.Log;
 import android.view.SurfaceView;
@@ -24,8 +24,8 @@ import io.agora.rtc2.ChannelMediaOptions;
 import io.agora.rtc2.video.VideoCanvas;
 import io.agora.rtc2.video.VideoEncoderConfiguration;
 
-public class AgoraCall extends CordovaPlugin {
-    private static final String LOG_TAG = "AgoraCall";
+public class WidgetSettings extends CordovaPlugin {
+    private static final String LOG_TAG = "WidgetSettings";
     private RtcEngine rtcEngine;
     private CallbackContext callbackContext;
 
