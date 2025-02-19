@@ -54,6 +54,25 @@
         [defaults setObject:totalWaterGoal forKey:@"totalWaterGoal"];
         [defaults setObject:waterIncrement forKey:@"waterIncrement"];
     }
+    else if ([type isEqualToString:@"ai"]) {
+        NSString *text = [options objectForKey:@"text"];
+        if (text) {
+            [defaults setObject:text forKey:@"aiText"];
+        } else {
+            NSLog(@"[WidgetSettings] Error.");
+        }
+    }
+    else if ([type isEqualToString:@"period"]) {
+        NSNumber *daysUntilEvent = [options objectForKey:@"daysUntilEvent"];
+        NSString *eventType = [options objectForKey:@"eventType"];
+        
+        if (daysUntilEvent && eventType) {
+            [defaults setObject:daysUntilEvent forKey:@"periodDaysUntilEvent"];
+            [defaults setObject:eventType forKey:@"periodEventType"];
+        } else {
+            NSLog(@"[WidgetSettings] Hata: Periyot verisi eksik veya hatalı.");
+        }
+    }
     
     [defaults synchronize];
     
