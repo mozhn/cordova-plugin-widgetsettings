@@ -63,11 +63,9 @@
         }
     }
     else if ([type isEqualToString:@"period"]) {
-        NSNumber *daysUntilEvent = [options objectForKey:@"daysUntilEvent"];
         NSString *eventType = [options objectForKey:@"eventType"];
         
-        if (daysUntilEvent && eventType) {
-            [defaults setObject:daysUntilEvent forKey:@"periodDaysUntilEvent"];
+        if (eventType) {
             [defaults setObject:eventType forKey:@"periodEventType"];
         } else {
             NSLog(@"[WidgetSettings] Hata: Periyot verisi eksik veya hatalı.");
