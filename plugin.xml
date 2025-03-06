@@ -12,6 +12,9 @@
         <param name="android-package" value="me.mazlum.widgetsettings.WidgetSettings" />
       </feature>
     </config-file>
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    </config-file>
     <config-file parent="/*" target="AndroidManifest.xml" />
     <source-file src="src/android/WidgetSettings.java" target-dir="src/me/mazlum/widgetsettings" />
   </platform>
